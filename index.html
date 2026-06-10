@@ -42,38 +42,6 @@
     white-space:nowrap;
   }
   .nav-logo span { color:var(--gold); }
-  
-  .nav-right {
-    display:flex;
-    align-items:center;
-    gap:16px;
-  }
-
-  /* Language Switcher Styles */
-  .lang-switcher {
-    display: flex;
-    gap: 6px;
-    background: rgba(255,255,255,0.08);
-    padding: 4px;
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.15);
-  }
-  .lang-btn {
-    background: none;
-    border: none;
-    color: rgba(255,255,255,0.6);
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 4px 8px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .lang-btn.active {
-    background: var(--gold);
-    color: #1A3A6B;
-  }
-
   .hamburger { display:flex; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
   .hamburger div { width:24px; height:2px; background:#fff; border-radius:2px; transition:all 0.3s; }
   .hamburger.open div:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
@@ -103,7 +71,7 @@
     min-height:100vh;
     background: linear-gradient(145deg, var(--sapphire) 0%, var(--blue-mid) 60%, #1e4d8c 100%);
     display:flex; flex-direction:column; align-items:center; justify-content:center;
-    text-align:center; padding:90px 24px 60px;
+    text-align:center; padding:80px 24px 60px;
     position:relative; overflow:hidden;
   }
   .blob {
@@ -320,21 +288,25 @@
   .ba-images { display:grid; grid-template-columns:1fr 1fr; }
   .ba-img {
     aspect-ratio:4/3;
-    display:flex; align-items:center; justify-content:center;
-    font-size:2.8rem;
     position:relative;
     overflow:hidden;
+    background-color:#e4eef6;
   }
-  .ba-img.before { background: linear-gradient(135deg, #d4cfc8, #b8b3ab); }
-  .ba-img.after { background: linear-gradient(135deg, #c8e8f8, #a8d8f0); }
+  .ba-img img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
   .ba-label {
     position:absolute; top:10px; left:10px;
-    background:rgba(0,0,0,0.55);
+    background:rgba(0,0,0,0.6);
     color:#fff; font-size:0.7rem; font-weight:600;
-    padding:3px 9px; border-radius:10px;
+    padding:4px 10px; border-radius:10px;
     letter-spacing:0.08em; text-transform:uppercase;
+    z-index:2;
   }
-  .ba-label.after-label { background:rgba(26,58,107,0.75); }
+  .ba-label.after-label { background:rgba(26,58,107,0.85); }
   .ba-info { padding:18px; }
   .ba-treatment {
     font-family:'Playfair Display',serif;
@@ -506,6 +478,10 @@
     .services-grid { grid-template-columns:1fr 1fr; }
     .hero-btns { flex-direction:row; }
     .cta-btns { flex-direction:row; }
+    .ba-grid { display:grid; grid-template-columns: 1fr; gap:28px; }
+  }
+  @media(min-width:900px) {
+    .ba-grid { grid-template-columns: 1fr 1fr 1fr; }
   }
 </style>
 </head>
@@ -516,26 +492,18 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo" data-i18n="nav-logo">Dr.<span> Hovhannes</span></div>
-  <div class="nav-right">
-    <!-- Language Switcher Interface -->
-    <div class="lang-switcher">
-      <button class="lang-btn active" onclick="changeLang('en')">EN</button>
-      <button class="lang-btn" onclick="changeLang('hy')">AM</button>
-      <button class="lang-btn" onclick="changeLang('ru')">RU</button>
-    </div>
-    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-      <div></div><div></div><div></div>
-    </div>
+  <div class="nav-logo">Dr.<span> Hovhannes</span></div>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <div></div><div></div><div></div>
   </div>
 </nav>
 <div class="nav-menu" id="navMenu">
-  <a href="#home" onclick="closeMenu()" data-i18n="menu-home">🏠 Home</a>
-  <a href="#about" onclick="closeMenu()" data-i18n="menu-about">👨‍⚕️ About</a>
-  <a href="#services" onclick="closeMenu()" data-i18n="menu-services">🦷 Services</a>
-  <a href="#results" onclick="closeMenu()" data-i18n="menu-results">✨ Before & After</a>
-  <a href="#reviews" onclick="closeMenu()" data-i18n="menu-reviews">⭐ Reviews</a>
-  <a href="#booking" onclick="closeMenu()" data-i18n="menu-booking">📅 Book a Visit</a>
+  <a href="#home" onclick="closeMenu()">🏠 Home</a>
+  <a href="#about" onclick="closeMenu()">👨‍⚕️ About</a>
+  <a href="#services" onclick="closeMenu()">🦷 Services</a>
+  <a href="#results" onclick="closeMenu()">✨ Before & After</a>
+  <a href="#reviews" onclick="closeMenu()">⭐ Reviews</a>
+  <a href="#booking" onclick="closeMenu()">📅 Book a Visit</a>
 </div>
 
 <!-- HERO -->
@@ -543,161 +511,164 @@
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
-  <div class="hero-badge" data-i18n="hero-badge">Certified Dental Professional</div>
-  <h1 class="hero-title" data-i18n="hero-title">Your Perfect<br/><span class="highlight">Smile</span> Starts Here</h1>
-  <p class="hero-subtitle" data-i18n="hero-subtitle">Dr. Hovhannes — Dentist</p>
-  <p class="hero-desc" data-i18n="hero-desc">Expert dental care with a gentle touch. From routine check-ups to complete smile transformations.</p>
+  <div class="hero-badge">Certified Dental Professional</div>
+  <h1 class="hero-title">Your Perfect<br/><span class="highlight">Smile</span> Starts Here</h1>
+  <p class="hero-subtitle">Dr. Hovhannes — Dentist</p>
+  <p class="hero-desc">Expert dental care with a gentle touch. From routine check-ups to complete smile transformations.</p>
   <div class="hero-btns">
-    <a href="https://wa.me/37433213330" class="btn-primary" target="_blank" data-i18n="btn-whatsapp-text">💬 WhatsApp Us</a>
-    <a href="tel:+37433213330" class="btn-secondary" data-i18n="btn-call-text">📞 Call Now</a>
+    <a href="https://wa.me/37433213330" class="btn-primary" target="_blank">💬 WhatsApp Us</a>
+    <a href="tel:+37433213330" class="btn-secondary">📞 Call Now</a>
   </div>
   <div class="hero-stats">
-    <div class="stat"><div class="stat-num">12+</div><div class="stat-label" data-i18n="stat-exp">Years Experience</div></div>
-    <div class="stat"><div class="stat-num">2K+</div><div class="stat-label" data-i18n="stat-patients">Happy Patients</div></div>
-    <div class="stat"><div class="stat-num">98%</div><div class="stat-label" data-i18n="stat-satisfaction">Satisfaction</div></div>
+    <div class="stat"><div class="stat-num">12+</div><div class="stat-label">Years Experience</div></div>
+    <div class="stat"><div class="stat-num">2K+</div><div class="stat-label">Happy Patients</div></div>
+    <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Satisfaction</div></div>
   </div>
 </section>
 
 <!-- ABOUT -->
 <section id="about">
-  <span class="section-label reveal" data-i18n="about-label">About the Doctor</span>
+  <span class="section-label reveal">About the Doctor</span>
   <div class="about-card reveal">
-    <div class="about-name" data-i18n="about-name">Dr. Hovhannes</div>
-    <div class="about-role" data-i18n="about-role">General & Cosmetic Dentist</div>
-    <p class="about-text" data-i18n="about-text">With over 12 years of dedicated practice, Dr. Hovhannes combines modern dental technology with a compassionate, patient-first approach. Trained in leading European institutions, he specialises in both preventive care and smile transformations — ensuring every patient leaves confident and comfortable.</p>
+    <div class="about-name">Dr. Hovhannes</div>
+    <div class="about-role">General & Cosmetic Dentist</div>
+    <p class="about-text">With over 12 years of dedicated practice, Dr. Hovhannes combines modern dental technology with a compassionate, patient-first approach. Trained in leading European institutions, he specialises in both preventive care and smile transformations — ensuring every patient leaves confident and comfortable.</p>
     <div class="about-quals">
-      <span class="qual-tag" data-i18n="qual-1">🎓 European Dental Board</span>
-      <span class="qual-tag" data-i18n="qual-2">🦷 Implantology Certified</span>
-      <span class="qual-tag" data-i18n="qual-3">✨ Aesthetic Dentistry</span>
-      <span class="qual-tag" data-i18n="qual-4">🏆 Orthodontics</span>
+      <span class="qual-tag">🎓 European Dental Board</span>
+      <span class="qual-tag">🦷 Implantology Certified</span>
+      <span class="qual-tag">✨ Aesthetic Dentistry</span>
+      <span class="qual-tag">🏆 Orthodontics</span>
     </div>
   </div>
 </section>
 
 <!-- SERVICES -->
 <section id="services">
-  <span class="section-label reveal" data-i18n="services-label">What We Offer</span>
-  <h2 class="section-title reveal" data-i18n="services-title">Our Dental Services</h2>
-  <p class="section-desc reveal" data-i18n="services-desc">Comprehensive dental care tailored to your unique needs — all under one roof.</p>
+  <span class="section-label reveal">What We Offer</span>
+  <h2 class="section-title reveal">Our Dental Services</h2>
+  <p class="section-desc reveal">Comprehensive dental care tailored to your unique needs — all under one roof.</p>
   <div class="services-grid">
     <div class="service-card reveal">
       <span class="service-icon">🦷</span>
-      <div class="service-name" data-i18n="srv-1-title">General Dentistry</div>
-      <div class="service-desc" data-i18n="srv-1-desc">Routine check-ups, cleanings, and preventive care to maintain your oral health.</div>
+      <div class="service-name">General Dentistry</div>
+      <div class="service-desc">Routine check-ups, cleanings, and preventive care to maintain your oral health.</div>
     </div>
     <div class="service-card reveal">
       <span class="service-icon">✨</span>
-      <div class="service-name" data-i18n="srv-2-title">Teeth Whitening</div>
-      <div class="service-desc" data-i18n="srv-2-desc">Professional whitening treatments for a brighter, more radiant smile.</div>
+      <div class="service-name">Teeth Whitening</div>
+      <div class="service-desc">Professional whitening treatments for a brighter, more radiant smile.</div>
     </div>
     <div class="service-card reveal">
       <span class="service-icon">💎</span>
-      <div class="service-name" data-i18n="srv-3-title">Dental Veneers</div>
-      <div class="service-desc" data-i18n="srv-3-desc">Porcelain veneers for a flawless, natural-looking transformation.</div>
+      <div class="service-name">Dental Veneers</div>
+      <div class="service-desc">Porcelain veneers for a flawless, natural-looking transformation.</div>
     </div>
     <div class="service-card reveal">
       <span class="service-icon">🔩</span>
-      <div class="service-name" data-i18n="srv-4-title">Implants</div>
-      <div class="service-desc" data-i18n="srv-4-desc">Permanent tooth replacements that look, feel, and function naturally.</div>
+      <div class="service-name">Implants</div>
+      <div class="service-desc">Permanent tooth replacements that look, feel, and function naturally.</div>
     </div>
     <div class="service-card reveal">
       <span class="service-icon">📐</span>
-      <div class="service-name" data-i18n="srv-5-title">Orthodontics</div>
-      <div class="service-desc" data-i18n="srv-5-desc">Braces and clear aligners to straighten your teeth comfortably.</div>
+      <div class="service-name">Orthodontics</div>
+      <div class="service-desc">Braces and clear aligners to straighten your teeth comfortably.</div>
     </div>
     <div class="service-card reveal">
       <span class="service-icon">🛡️</span>
-      <div class="service-name" data-i18n="srv-6-title">Root Canal</div>
-      <div class="service-desc" data-i18n="srv-6-desc">Pain-free endodontic treatment to save and restore damaged teeth.</div>
+      <div class="service-name">Root Canal</div>
+      <div class="service-desc">Pain-free endodontic treatment to save and restore damaged teeth.</div>
     </div>
   </div>
   <br/>
   <div style="text-align:center; margin-top:8px;">
-    <a href="https://wa.me/37433213330" class="btn-primary" id="askServicesBtn" target="_blank" style="display:inline-flex;" data-i18n="btn-ask-services">💬 Ask About Services</a>
+    <a href="https://wa.me/37433213330?text=Hello%2C%20I'd%20like%20to%20learn%20more%20about%20your%20services" class="btn-primary" target="_blank" style="display:inline-flex;">💬 Ask About Services</a>
   </div>
 </section>
 
 <!-- BEFORE & AFTER -->
 <section id="results">
-  <span class="section-label reveal" data-i18n="results-label">Real Results</span>
-  <h2 class="section-title reveal" data-i18n="results-title">Before & After</h2>
-  <p class="section-desc reveal" data-i18n="results-desc">See the life-changing transformations our patients have experienced.</p>
+  <span class="section-label reveal">Real Results</span>
+  <h2 class="section-title reveal">Before & After</h2>
+  <p class="section-desc reveal">See the life-changing transformations our patients have experienced.</p>
   <div class="ba-grid">
 
+    <!-- Case 1 -->
     <div class="ba-card reveal">
       <div class="ba-images">
-        <div class="ba-img before">
-          <span class="ba-label" data-i18n="lbl-before">Before</span>
-          <span style="font-size:2.6rem; opacity:0.55">🦷</span>
+        <div class="ba-img">
+          <span class="ba-label">Before</span>
+          <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=500&q=80" alt="Full Smile Makeover Before">
         </div>
-        <div class="ba-img after">
-          <span class="ba-label after-label" data-i18n="lbl-after">After</span>
-          <span style="font-size:2.6rem; opacity:0.9">😁</span>
+        <div class="ba-img">
+          <span class="ba-label after-label">After</span>
+          <img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=500&q=80" alt="Full Smile Makeover After">
         </div>
       </div>
       <div class="ba-info">
-        <div class="ba-treatment" data-i18n="ba-1-title">Full Smile Makeover</div>
-        <div class="ba-duration" data-i18n="ba-1-desc">Veneers + Whitening — 2 sessions</div>
+        <div class="ba-treatment">Full Smile Makeover</div>
+        <div class="ba-duration">Veneers + Whitening — 2 sessions</div>
       </div>
     </div>
 
+    <!-- Case 2 -->
     <div class="ba-card reveal">
       <div class="ba-images">
-        <div class="ba-img before">
-          <span class="ba-label" data-i18n="lbl-before">Before</span>
-          <span style="font-size:2.6rem; opacity:0.55">😬</span>
+        <div class="ba-img">
+          <span class="ba-label">Before</span>
+          <img src="https://images.unsplash.com/photo-1513412583790-264b730693f5?auto=format&fit=crop&w=500&q=80" alt="Orthodontic Correction Before">
         </div>
-        <div class="ba-img after">
-          <span class="ba-label after-label" data-i18n="lbl-after">After</span>
-          <span style="font-size:2.6rem; opacity:0.9">😊</span>
+        <div class="ba-img">
+          <span class="ba-label after-label">After</span>
+          <img src="https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?auto=format&fit=crop&w=500&q=80" alt="Orthodontic Correction After">
         </div>
       </div>
       <div class="ba-info">
-        <div class="ba-treatment" data-i18n="ba-2-title">Orthodontic Correction</div>
-        <div class="ba-duration" data-i18n="ba-2-desc">Clear Aligners — 8 months</div>
+        <div class="ba-treatment">Orthodontic Correction</div>
+        <div class="ba-duration">Clear Aligners — 8 months</div>
       </div>
     </div>
 
+    <!-- Case 3 -->
     <div class="ba-card reveal">
       <div class="ba-images">
-        <div class="ba-img before">
-          <span class="ba-label" data-i18n="lbl-before">Before</span>
-          <span style="font-size:2.6rem; opacity:0.45">🫤</span>
+        <div class="ba-img">
+          <span class="ba-label">Before</span>
+          <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=500&q=80" alt="Dental Implant Before">
         </div>
-        <div class="ba-img after">
-          <span class="ba-label after-label" data-i18n="lbl-after">After</span>
-          <span style="font-size:2.6rem; opacity:0.9">🤩</span>
+        <div class="ba-img">
+          <span class="ba-label after-label">After</span>
+          <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=500&q=80" alt="Dental Implant After">
         </div>
       </div>
       <div class="ba-info">
-        <div class="ba-treatment" data-i18n="ba-3-title">Dental Implant</div>
-        <div class="ba-duration" data-i18n="ba-3-desc">Single Implant + Crown — 3 months</div>
+        <div class="ba-treatment">Dental Implant</div>
+        <div class="ba-duration">Single Implant + Crown — 3 months</div>
       </div>
     </div>
 
   </div>
   <br/>
   <div style="text-align:center; margin-top:8px;">
-    <a href="https://wa.me/37433213330" class="btn-primary" id="getConsultBtn" target="_blank" style="display:inline-flex;" data-i18n="btn-consultation">💬 Get Your Consultation</a>
+    <a href="https://wa.me/37433213330?text=Hello%2C%20I'd%20like%20to%20see%20more%20results%20and%20book%20a%20consultation" class="btn-primary" target="_blank" style="display:inline-flex;">💬 Get Your Consultation</a>
   </div>
 </section>
 
 <!-- REVIEWS -->
 <section id="reviews">
-  <span class="section-label reveal" data-i18n="reviews-label">Patient Stories</span>
-  <h2 class="section-title reveal" data-i18n="reviews-title">What Patients Say</h2>
-  <p class="section-desc reveal" data-i18n="reviews-desc">Real feedback from real patients who trusted us with their smiles.</p>
+  <span class="section-label reveal">Patient Stories</span>
+  <h2 class="section-title reveal">What Patients Say</h2>
+  <p class="section-desc reveal">Real feedback from real patients who trusted us with their smiles.</p>
   <div class="reviews-list">
 
     <div class="review-card reveal">
       <div class="review-quote">"</div>
       <div class="stars">★★★★★</div>
-      <p class="review-text" data-i18n="rev-1-text">Dr. Hovhannes completely transformed my smile with veneers. I was nervous going in, but he made the entire process comfortable and clear. The results exceeded my expectations!</p>
+      <p class="review-text">Dr. Hovhannes completely transformed my smile with veneers. I was nervous going in, but he made the entire process comfortable and clear. The results exceeded my expectations!</p>
       <div class="reviewer">
         <div class="reviewer-avatar">A</div>
         <div>
-          <div class="reviewer-name" data-i18n="rev-1-name">Anna M.</div>
-          <div class="reviewer-date" data-i18n="rev-1-date">March 2025 · Veneer Treatment</div>
+          <div class="reviewer-name">Anna M.</div>
+          <div class="reviewer-date">March 2025 · Veneer Treatment</div>
         </div>
       </div>
     </div>
@@ -705,12 +676,12 @@
     <div class="review-card reveal">
       <div class="review-quote">"</div>
       <div class="stars">★★★★★</div>
-      <p class="review-text" data-i18n="rev-2-text">I had a dental implant done and couldn't be happier. Very professional, painless procedure, and the staff were incredibly welcoming throughout every appointment.</p>
+      <p class="review-text">I had a dental implant done and couldn't be happier. Very professional, painless procedure, and the staff were incredibly welcoming throughout every appointment.</p>
       <div class="reviewer">
         <div class="reviewer-avatar">V</div>
         <div>
-          <div class="reviewer-name" data-i18n="rev-2-name">Vardan K.</div>
-          <div class="reviewer-date" data-i18n="rev-2-date">January 2025 · Dental Implant</div>
+          <div class="reviewer-name">Vardan K.</div>
+          <div class="reviewer-date">January 2025 · Dental Implant</div>
         </div>
       </div>
     </div>
@@ -718,12 +689,12 @@
     <div class="review-card reveal">
       <div class="review-quote">"</div>
       <div class="stars">★★★★★</div>
-      <p class="review-text" data-i18n="rev-3-text">Best dentist experience I've ever had. Dr. Hovhannes took the time to explain each step. My teeth whitening results were dramatic — so many compliments since!</p>
+      <p class="review-text">Best dentist experience I've ever had. Dr. Hovhannes took the time to explain each step. My teeth whitening results were dramatic — so many compliments since!</p>
       <div class="reviewer">
         <div class="reviewer-avatar">M</div>
         <div>
-          <div class="reviewer-name" data-i18n="rev-3-name">Maria S.</div>
-          <div class="reviewer-date" data-i18n="rev-3-date">November 2024 · Whitening</div>
+          <div class="reviewer-name">Maria S.</div>
+          <div class="reviewer-date">November 2024 · Whitening</div>
         </div>
       </div>
     </div>
@@ -731,12 +702,12 @@
     <div class="review-card reveal">
       <div class="review-quote">"</div>
       <div class="stars">★★★★★</div>
-      <p class="review-text" data-i18n="rev-4-text">After years of being afraid of the dentist, Dr. Hovhannes changed everything. He's patient, skilled, and genuinely caring. My orthodontic treatment is going perfectly.</p>
+      <p class="review-text">After years of being afraid of the dentist, Dr. Hovhannes changed everything. He's patient, skilled, and genuinely caring. My orthodontic treatment is going perfectly.</p>
       <div class="reviewer">
         <div class="reviewer-avatar">N</div>
         <div>
-          <div class="reviewer-name" data-i18n="rev-4-name">Narek T.</div>
-          <div class="reviewer-date" data-i18n="rev-4-date">December 2024 · Orthodontics</div>
+          <div class="reviewer-name">Narek T.</div>
+          <div class="reviewer-date">December 2024 · Orthodontics</div>
         </div>
       </div>
     </div>
@@ -748,399 +719,74 @@
 <section id="cta-banner">
   <div class="blob blob-1" style="width:200px;height:200px;top:-40px;left:-20px;"></div>
   <div class="blob blob-2" style="width:160px;height:160px;bottom:20px;right:-20px;"></div>
-  <h2 class="cta-title reveal" data-i18n="cta-title">Ready for Your Dream Smile?</h2>
-  <p class="cta-text reveal" data-i18n="cta-desc">Book a consultation today and take the first step toward a confident, healthy smile.</p>
+  <h2 class="cta-title reveal">Ready for Your Dream Smile?</h2>
+  <p class="cta-text reveal">Book a consultation today and take the first step toward a confident, healthy smile.</p>
   <div class="cta-btns reveal">
-    <a href="tel:+37433213330" class="btn-primary" data-i18n="btn-call-text">📞 Call Now</a>
-    <a href="https://wa.me/37433213330" class="btn-secondary" id="ctaWaBtn" target="_blank" data-i18n="btn-cta-wa">💬 Message on WhatsApp</a>
+    <a href="tel:+37433213330" class="btn-primary">📞 Call Now</a>
+    <a href="https://wa.me/37433213330?text=Hello%2C%20I'd%20like%20to%20book%20a%20consultation" class="btn-secondary" target="_blank">💬 Message on WhatsApp</a>
   </div>
 </section>
 
 <!-- BOOKING -->
 <section id="booking">
   <div class="booking-wrap reveal">
-    <div class="booking-label" data-i18n="book-label">📅 Easy Booking</div>
-    <h2 class="booking-title" data-i18n="book-title">Book Your Visit via WhatsApp</h2>
-    <p class="booking-desc" data-i18n="book-desc">Fill in your details below and send us a message — we'll confirm your appointment quickly.</p>
+    <div class="booking-label">📅 Easy Booking</div>
+    <h2 class="booking-title">Book Your Visit via WhatsApp</h2>
+    <p class="booking-desc">Fill in your details below and send us a message — we'll confirm your appointment quickly.</p>
 
     <div class="form-group">
-      <label for="fname" data-i18n="form-fname">First Name</label>
+      <label for="fname">First Name</label>
       <input type="text" id="fname" placeholder="e.g. Anna" />
     </div>
     <div class="form-group">
-      <label for="lname" data-i18n="form-lname">Last Name</label>
+      <label for="lname">Last Name</label>
       <input type="text" id="lname" placeholder="e.g. Petrosyan" />
     </div>
     <div class="form-group">
-      <label for="phone" data-i18n="form-phone">Mobile Phone</label>
+      <label for="phone">Mobile Phone</label>
       <input type="tel" id="phone" placeholder="+374 XX XXX XXX" />
     </div>
     <div class="form-group">
-      <label for="service" data-i18n="form-service">Service of Interest</label>
+      <label for="service">Service of Interest</label>
       <select id="service">
-        <option value="" data-i18n="opt-select">Select a service...</option>
-        <option value="General Check-up" data-i18n="opt-1">General Check-up</option>
-        <option value="Teeth Whitening" data-i18n="opt-2">Teeth Whitening</option>
-        <option value="Dental Veneers" data-i18n="opt-3">Dental Veneers</option>
-        <option value="Dental Implants" data-i18n="opt-4">Dental Implants</option>
-        <option value="Orthodontics" data-i18n="opt-5">Orthodontics</option>
-        <option value="Root Canal" data-i18n="opt-6">Root Canal</option>
-        <option value="Other / Consultation" data-i18n="opt-7">Other / Consultation</option>
+        <option value="">Select a service...</option>
+        <option>General Check-up</option>
+        <option>Teeth Whitening</option>
+        <option>Dental Veneers</option>
+        <option>Dental Implants</option>
+        <option>Orthodontics</option>
+        <option>Root Canal</option>
+        <option>Other / Consultation</option>
       </select>
     </div>
 
     <a href="#" class="btn-whatsapp" id="sendWA" onclick="sendToWhatsApp(event)">
-      <span class="wa-icon">💬</span> <span data-i18n="btn-submit-booking">Send Booking via WhatsApp</span>
+      <span class="wa-icon">💬</span> Send Booking via WhatsApp
     </a>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo" data-i18n="nav-logo">Dr.<span> Hovhannes</span></div>
-  <div class="footer-tagline" data-i18n="footer-tagline">Your Smile, Our Mission</div>
+  <div class="footer-logo">Dr.<span> Hovhannes</span></div>
+  <div class="footer-tagline">Your Smile, Our Mission</div>
   <div class="footer-links">
-    <a href="#home" data-i18n="f-home">Home</a>
-    <a href="#about" data-i18n="f-about">About</a>
-    <a href="#services" data-i18n="f-services">Services</a>
-    <a href="#results" data-i18n="f-results">Results</a>
-    <a href="#reviews" data-i18n="f-reviews">Reviews</a>
-    <a href="#booking" data-i18n="f-book">Book</a>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#results">Results</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#booking">Book</a>
   </div>
   <div style="display:flex;justify-content:center;gap:16px;margin-bottom:20px;">
-    <a href="tel:+37433213330" class="btn-primary" style="font-size:0.85rem;padding:10px 20px;" data-i18n="btn-call-text">📞 Call Us</a>
-    <a href="https://wa.me/37433213330" class="btn-secondary" target="_blank" style="font-size:0.85rem;padding:10px 20px;background:rgba(37,211,102,0.15);border-color:rgba(37,211,102,0.5);color:#25D366;">Data</a>
+    <a href="tel:+37433213330" class="btn-primary" style="font-size:0.85rem;padding:10px 20px;">📞 Call Us</a>
+    <a href="https://wa.me/37433213330" class="btn-secondary" target="_blank" style="font-size:0.85rem;padding:10px 20px;background:rgba(37,211,102,0.15);border-color:rgba(37,211,102,0.5);color:#25D366;">💬 WhatsApp</a>
   </div>
   <div class="footer-divider"></div>
-  <div class="footer-copy" data-i18n="footer-copy">© 2025 Dr. Hovhannes Dental Clinic. All rights reserved.</div>
+  <div class="footer-copy">© 2026 Dr. Hovhannes Dental Clinic. All rights reserved.</div>
 </footer>
 
 <script>
-  // TRANSLATION DICTIONARY
-  const translations = {
-    en: {
-      "nav-logo": "Dr.<span> Hovhannes</span>",
-      "menu-home": "🏠 Home",
-      "menu-about": "👨‍⚕️ About",
-      "menu-services": "🦷 Services",
-      "menu-results": "✨ Before & After",
-      "menu-reviews": "⭐ Reviews",
-      "menu-booking": "📅 Book a Visit",
-      "hero-badge": "Certified Dental Professional",
-      "hero-title": "Your Perfect<br/><span class='highlight'>Smile</span> Starts Here",
-      "hero-subtitle": "Dr. Hovhannes — Dentist",
-      "hero-desc": "Expert dental care with a gentle touch. From routine check-ups to complete smile transformations.",
-      "btn-whatsapp-text": "💬 WhatsApp Us",
-      "btn-call-text": "📞 Call Now",
-      "stat-exp": "Years Experience",
-      "stat-patients": "Happy Patients",
-      "stat-satisfaction": "Satisfaction",
-      "about-label": "About the Doctor",
-      "about-name": "Dr. Hovhannes",
-      "about-role": "General & Cosmetic Dentist",
-      "about-text": "With over 12 years of dedicated practice, Dr. Hovhannes combines modern dental technology with a compassionate, patient-first approach. Trained in leading European institutions, he specialises in both preventive care and smile transformations — ensuring every patient leaves confident and comfortable.",
-      "qual-1": "🎓 European Dental Board",
-      "qual-2": "🦷 Implantology Certified",
-      "qual-3": "✨ Aesthetic Dentistry",
-      "qual-4": "🏆 Orthodontics",
-      "services-label": "What We Offer",
-      "services-title": "Our Dental Services",
-      "services-desc": "Comprehensive dental care tailored to your unique needs — all under one roof.",
-      "srv-1-title": "General Dentistry",
-      "srv-1-desc": "Routine check-ups, cleanings, and preventive care to maintain your oral health.",
-      "srv-2-title": "Teeth Whitening",
-      "srv-2-desc": "Professional whitening treatments for a brighter, more radiant smile.",
-      "srv-3-title": "Dental Veneers",
-      "srv-3-desc": "Porcelain veneers for a flawless, natural-looking transformation.",
-      "srv-4-title": "Implants",
-      "srv-4-desc": "Permanent tooth replacements that look, feel, and function naturally.",
-      "srv-5-title": "Orthodontics",
-      "srv-5-desc": "Braces and clear aligners to straighten your teeth comfortably.",
-      "srv-6-title": "Root Canal",
-      "srv-6-desc": "Pain-free endodontic treatment to save and restore damaged teeth.",
-      "btn-ask-services": "💬 Ask About Services",
-      "results-label": "Real Results",
-      "results-title": "Before & After",
-      "results-desc": "See the life-changing transformations our patients have experienced.",
-      "lbl-before": "Before",
-      "lbl-after": "After",
-      "ba-1-title": "Full Smile Makeover",
-      "ba-1-desc": "Veneers + Whitening — 2 sessions",
-      "ba-2-title": "Orthodontic Correction",
-      "ba-2-desc": "Clear Aligners — 8 months",
-      "ba-3-title": "Dental Implant",
-      "ba-3-desc": "Single Implant + Crown — 3 months",
-      "btn-consultation": "💬 Get Your Consultation",
-      "reviews-label": "Patient Stories",
-      "reviews-title": "What Patients Say",
-      "reviews-desc": "Real feedback from real patients who trusted us with their smiles.",
-      "rev-1-text": "Dr. Hovhannes completely transformed my smile with veneers. I was nervous going in, but he made the entire process comfortable and clear. The results exceeded my expectations!",
-      "rev-1-name": "Anna M.",
-      "rev-1-date": "March 2025 · Veneer Treatment",
-      "rev-2-text": "I had a dental implant done and couldn't be happier. Very professional, painless procedure, and the staff were incredibly welcoming throughout every appointment.",
-      "rev-2-name": "Vardan K.",
-      "rev-2-date": "January 2025 · Dental Implant",
-      "rev-3-text": "Best dentist experience I've ever had. Dr. Hovhannes took the time to explain each step. My teeth whitening results were dramatic — so many compliments since!",
-      "rev-3-name": "Maria S.",
-      "rev-3-date": "November 2024 · Whitening",
-      "rev-4-text": "After years of being afraid of the dentist, Dr. Hovhannes changed everything. He's patient, skilled, and genuinely caring. My orthodontic treatment is going perfectly.",
-      "rev-4-name": "Narek T.",
-      "rev-4-date": "December 2024 · Orthodontics",
-      "cta-title": "Ready for Your Dream Smile?",
-      "cta-desc": "Book a consultation today and take the first step toward a confident, healthy smile.",
-      "btn-cta-wa": "💬 Message on WhatsApp",
-      "book-label": "📅 Easy Booking",
-      "book-title": "Book Your Visit via WhatsApp",
-      "book-desc": "Fill in your details below and send us a message — we'll confirm your appointment quickly.",
-      "form-fname": "First Name",
-      "form-lname": "Last Name",
-      "form-phone": "Mobile Phone",
-      "form-service": "Service of Interest",
-      "opt-select": "Select a service...",
-      "opt-1": "General Check-up",
-      "opt-2": "Teeth Whitening",
-      "opt-3": "Dental Veneers",
-      "opt-4": "Dental Implants",
-      "opt-5": "Orthodontics",
-      "opt-6": "Root Canal",
-      "opt-7": "Other / Consultation",
-      "btn-submit-booking": "Send Booking via WhatsApp",
-      "footer-tagline": "Your Smile, Our Mission",
-      "f-home": "Home", "f-about": "About", "f-services": "Services", "f-results": "Results", "f-reviews": "Reviews", "f-book": "Book",
-      "footer-copy": "© 2025 Dr. Hovhannes Dental Clinic. All rights reserved.",
-      "ph-fname": "e.g. Anna", "ph-lname": "e.g. Petrosyan",
-      "alert-err": "Please fill in your name and phone number."
-    },
-    hy: {
-      "nav-logo": "Դր.<span> Հովհաննես</span>",
-      "menu-home": "🏠 Գլխավոր",
-      "menu-about": "👨‍⚕️ Մեր մասին",
-      "menu-services": "🦷 Ծառայություններ",
-      "menu-results": "✨ Առաջ և Հետո",
-      "menu-reviews": "⭐ Կարծիքներ",
-      "menu-booking": "📅 Ամրագրել",
-      "hero-badge": "Սերտիֆիկացված Ատամնաբույժ",
-      "hero-title": "Ձեր կատարյալ<br/><span class='highlight'>Ժպիտը</span> սկսվում է այստեղ",
-      "hero-subtitle": "Դր. Հովհաննես — Ատամնաբույժ",
-      "hero-desc": "Պրոֆեսիոնալ ատամնաբուժական խնամք նուրբ մոտեցմամբ: Սովորական ստուգումներից մինչև ժպիտի ամբողջական տրանսֆորմացիա։",
-      "btn-whatsapp-text": "💬 Գրել WhatsApp-ով",
-      "btn-call-text": "📞 Զանգահարել",
-      "stat-exp": "Տարվա Փորձ",
-      "stat-patients": "Գոհ Պացիենտներ",
-      "stat-satisfaction": "Գոհունակություն",
-      "about-label": "Բժշկի մասին",
-      "about-name": "Դր. Հովհաննես",
-      "about-role": "Ընդհանուր և էսթետիկ Ատամնաբույժ",
-      "about-text": "Ավելի քան 12 տարվա նվիրված աշխատանքային փորձով Դր. Հովհաննեսը համատեղում է ժամանակակից ատամնաբուժական տեխնոլոգիաները հոգատար, պացիենտակենտրոն մոտեցման հետ: Վերապատրաստվել է եվրոպական առաջատար հաստատություններում, մասնագիտացած է կանխարգելիչ խնամքի և ժպիտի վերականգնման մեջ:",
-      "qual-1": "🎓 Եվրոպական Ատամնաբուժական Խորհուրդ",
-      "qual-2": "🦷 Սերտիֆիկացված Իմպլանտոլոգիա",
-      "qual-3": "✨ Էսթետիկ Ատամնաբուժություն",
-      "qual-4": "🏆 Օրթոդոնտիա",
-      "services-label": "Ինչ ենք առաջարկում",
-      "services-title": "Մեր Ծառայությունները",
-      "services-desc": "Համապարփակ ատամնաբուժական խնամք՝ հարմարեցված ձեր անհատական կարիքներին — ամեն ինչ մեկ տեղում:",
-      "srv-1-title": "Ընդհանուր Ատամնաբուժություն",
-      "srv-1-desc": "Պլանային ստուգումներ, պրոֆեսիոնալ մաքրում և կանխարգելիչ խնամք ձեր բերանի խոռոչի առողջության համար:",
-      "srv-2-title": "Ատամների Սպիտակեցում",
-      "srv-2-desc": "Պրոֆեսիոնալ սպիտակեցման պրոցեդուրաներ ավելի պայծառ ու փայլուն ժպիտի համար:",
-      "srv-3-title": "Վինիրներ",
-      "srv-3-desc": "Բարձրորակ կերամիկական վինիրներ՝ անթերի և բնական տեսք ունեցող ժպիտ ստանալու համար:",
-      "srv-4-title": "Իմպլանտներ",
-      "srv-4-desc": "Ատամների մշտական փոխարինում, որոնք զգացվում և գործում են լիովին բնական ատամի պես:",
-      "srv-5-title": "Օրթոդոնտիա",
-      "srv-5-desc": "Բրեկետներ և թափանցիկ էլայններ՝ ատամնաշարը հարմարավետ ուղղելու համար:",
-      "srv-6-title": "Արմատախողովակի բուժում",
-      "srv-6-desc": "Անցավ էնդոդոնտիկ բուժում՝ վնասված ատամները փրկելու և վերականգնելու համար:",
-      "btn-ask-services": "💬 Հարցնել ծառայությունների մասին",
-      "results-label": "Իրական Արդյունքներ",
-      "results-title": "Առաջ և Հետո",
-      "results-desc": "Տեսեք մեր պացիենտների կյանքը փոխած տրանսֆորմացիաները:",
-      "lbl-before": "Առաջ",
-      "lbl-after": "Հետո",
-      "ba-1-title": "Ժպիտի Ամբողջական Փոփոխություն",
-      "ba-1-desc": "Վինիրներ + Սպիտակեցում — 2 այցելություն",
-      "ba-2-title": "Օրթոդոնտիկ Ուղղում",
-      "ba-2-desc": "Թափանցիկ էլայններ — 8 ամիս",
-      "ba-3-title": "Ատամի Իմպլանտացիա",
-      "ba-3-desc": "Մեկ իմպլանտ + Պսակ — 3 ամիս",
-      "btn-consultation": "💬 Ստանալ Խորհրդատվություն",
-      "reviews-label": "Պացիենտների Պատմությունները",
-      "reviews-title": "Ինչ են Ասում Պացիենտները",
-      "reviews-desc": "Իրական կարծիքներ այն մարդկանցից, ովքեր վստահել են մեզ իրենց ժպիտը:",
-      "rev-1-text": "Դր. Հովհաննեսը վինիրների միջոցով ամբողջությամբ փոխեց ժպիտս։ Շատ էի անհանգստանում, բայց նա ամեն ինչ արեց անցավ ու հասկանալի: Արդյունքը գերազանցեց սպասելիքներս։",
-      "rev-1-name": "Աննա Մ․",
-      "rev-1-date": "Մարտ 2025 · Վինիրներ",
-      "rev-2-text": "Իմպլանտացիա եմ արել այստեղ և չափազանց գոհ եմ։ Շատ պրոֆեսիոնալ, անցավ պրոցեդուրա, իսկ անձնակազմը անչափ հոգատար էր յուրաքանչյուր փուլում:",
-      "rev-2-name": "Վարդան Կ․",
-      "rev-2-date": "Հունվար 2025 · Իմպլանտ",
-      "rev-3-text": "Լավագույն ատամնաբուժական փորձը, որ երբևէ ունեցել եմ: Բժիշկը մանրամասն բացատրեց ամեն քայլ: Սպիտակեցման արդյունքը պարզապես ապշեցուցիչ է:",
-      "rev-3-name": "Մարիա Ս․",
-      "rev-3-date": "Նոյեմբեր 2024 · Սպիտակեցում",
-      "rev-4-text": "Տարիներ շարունակ վախենում էի ատամնաբույժից, բայց Դր. Հովհաննեսը փոխեց ամեն ինչ: Նա համբերատար է, հմուտ և հոգատար: Օրթոդոնտիկ բուժումս ընթանում է հիանալի։",
-      "rev-4-name": "Նարեկ Թ․",
-      "rev-4-date": "Դեկտեմբեր 2024 · Օրթոդոնտիա",
-      "cta-title": "Պատրա՞ստ եք Ձեր Երազանքի Ժպիտին",
-      "cta-desc": "Ամրագրեք խորհրդատվություն այսօր և արեք առաջին քայլը դեպի առողջ ու վստահ ժպիտ:",
-      "btn-cta-wa": "💬 Գրել հաղորդագրություն WhatsApp-ով",
-      "book-label": "📅 Հեշտ Ամրագրում",
-      "book-title": "Ամրագրեք Այցը WhatsApp-ով",
-      "book-desc": "Լրացրեք ձեր տվյալները ստորև և ուղարկեք հաղորդագրություն. մենք արագ կհաստատենք ձեր այցը:",
-      "form-fname": "Անուն",
-      "form-lname": "Ազգանուն",
-      "form-phone": "Հեռախոսահամար",
-      "form-service": "Նախընտրած Ծառայությունը",
-      "opt-select": "Ընտրեք ծառայությունը...",
-      "opt-1": "Ընդհանուր Ստուգում",
-      "opt-2": "Ատամների Սպիտակեցում",
-      "opt-3": "Վինիրներ",
-      "opt-4": "Իմպլանտներ",
-      "opt-5": "Օրթոդոնտիա",
-      "opt-6": "Արմատախողովակի Բուժում",
-      "opt-7": "Այլ / Խորհրդատվություն",
-      "btn-submit-booking": "Ուղարկել Ամրագրումը WhatsApp-ով",
-      "footer-tagline": "Ձեր Ժպիտը, Մեր Առաքելությունը",
-      "f-home": "Գլխավոր", "f-about": "Մեր մասին", "f-services": "Ծառայություններ", "f-results": "Արդյունքներ", "f-reviews": "Կարծիքներ", "f-book": "Ամրագրել",
-      "footer-copy": "© 2025 Դր. Հովհաննես Ատամնաբուժական Կլինիկա. Բոլոր իրավունքները պաշտպանված են:",
-      "ph-fname": "օր. Աննա", "ph-lname": "օր. Պետրոսյան",
-      "alert-err": "Խնդրում ենք լրացնել ձեր անունը և հեռախոսահամարը:"
-    },
-    ru: {
-      "nav-logo": "Др.<span> Оганес</span>",
-      "menu-home": "🏠 Главная",
-      "menu-about": "👨‍⚕️ О докторе",
-      "menu-services": "🦷 Услуги",
-      "menu-results": "✨ До и После",
-      "menu-reviews": "⭐ Отзывы",
-      "menu-booking": "📅 Запись",
-      "hero-badge": "Сертифицированный Стоматолог",
-      "hero-title": "Ваша идеальная<br/><span class='highlight'>Улыбка</span> начинается здесь",
-      "hero-subtitle": "Др. Оганес — Стоматолог",
-      "hero-desc": "Профессиональная стоматологическая помощь с заботой о вас. От плановых осмотров до полного преображения улыбки.",
-      "btn-whatsapp-text": "💬 Написать в WhatsApp",
-      "btn-call-text": "📞 Позвонить",
-      "stat-exp": "Лет Опыта",
-      "stat-patients": "Счастливых Пациентов",
-      "stat-satisfaction": "Удовлетворенность",
-      "about-label": "О докторе",
-      "about-name": "Др. Оганес",
-      "about-role": "Общая и Эстетическая Стоматология",
-      "about-text": "Обладая более чем 12-летним опытом непрерывной практики, доктор Оганес сочетает передовые стоматологические технологии с чутким, ориентированным на пациента подходом. Проходил обучение в ведущих европейских институтах, специализируется как на профилактическом уходе, так и на эстетической реконструкции улыбки.",
-      "qual-1": "🎓 Европейский Стоматологический Совет",
-      "qual-2": "🦷 Сертифицированная Имплантология",
-      "qual-3": "✨ Эстетическая Стоматология",
-      "qual-4": "🏆 Ортодонтия",
-      "services-label": "Что мы предлагаем",
-      "services-title": "Наши Услуги",
-      "services-desc": "Комплексная стоматологическая помощь, адаптированная под ваши уникальные потребности — всё в одном месте.",
-      "srv-1-title": "Общая Стоматология",
-      "srv-1-desc": "Регулярные осмотры, чистка и профилактический уход для поддержания здоровья полости рта.",
-      "srv-2-title": "Отбеливание Зубов",
-      "srv-2-desc": "Профессиональное отбеливание для сияющей, белоснежной улыбки.",
-      "srv-3-title": "Зубные Виниры",
-      "srv-3-desc": "Высококачественные керамические виниры для безупречного и естественного результата.",
-      "srv-4-title": "Имплантация",
-      "srv-4-desc": "Долговечное восстановление зубов, которые выглядят, ощущаются и функционируют как родные.",
-      "srv-5-title": "Ортодонтия",
-      "srv-5-desc": "Брекеты и элайнеры для комфортного и незаметного исправления прикуса.",
-      "srv-6-title": "Лечение Каналов",
-      "srv-6-desc": "Безболезненное эндодонтическое лечение для спасения и восстановления поврежденных зубов.",
-      "btn-ask-services": "💬 Узнать об услугах",
-      "results-label": "Реальные Результаты",
-      "results-title": "До и После",
-      "results-desc": "Посмотрите на удивительные преображения, которые изменили жизнь наших пациентов.",
-      "lbl-before": "До",
-      "lbl-after": "После",
-      "ba-1-title": "Полное Преображение Улыбки",
-      "ba-1-desc": "Виниры + Отбеливание — 2 сеанса",
-      "ba-2-title": "Ортодонтическое Исправление",
-      "ba-2-desc": "Прозрачные элайнеры — 8 месяцев",
-      "ba-3-title": "Имплантация Зуба",
-      "ba-3-desc": "Один имплант + коронка — 3 месяца",
-      "btn-consultation": "💬 Получить Консультацию",
-      "reviews-label": "Истории Пациентов",
-      "reviews-title": "Что Говорят Пациенты",
-      "reviews-desc": "Честные отзывы от людей, которые доверили нам здоровье своих зубов.",
-      "rev-1-text": "Доктор Оганес полностью изменил мою улыбку с помощью виниров. Я очень переживала, но доктор сделал процесс максимально комфортным. Результат превзошел все ожидания!",
-      "rev-1-name": "Анна М.",
-      "rev-1-date": "Март 2025 · Установка виниров",
-      "rev-2-text": "Ставил здесь дентальный имплант и не мог бы пожелать лучшего. Всё суперпрофессионально, абсолютно без боли, и очень вежливый персонал на каждом приёме.",
-      "rev-2-name": "Вардан К.",
-      "rev-2-date": "Январь 2025 · Имплантация",
-      "rev-3-text": "Лучший опыт посещения стоматолога в моей жизни. Доктор подробно объяснял каждый шаг. Результат отбеливания потрясающий — получаю массу комплиментов!",
-      "rev-3-name": "Мария С.",
-      "rev-3-date": "Ноябрь 2024 · Отбеливание",
-      "rev-4-text": "Годами боялся стоматологов, пока не попал к доктору Оганесу. Он невероятно терпелив, квалифицирован и добр. Моё ортодонтическое лечение проходит идеально.",
-      "rev-4-name": "Нарек Т.",
-      "rev-4-date": "Декабрь 2024 · Ортодонтия",
-      "cta-title": "Готовы к Улыбке Вашей Мечты?",
-      "cta-desc": "Запишитесь на консультацию сегодня и сделайте первый шаг к здоровой и уверенной улыбке.",
-      "btn-cta-wa": "💬 Написать в WhatsApp",
-      "book-label": "📅 Легкая Запись",
-      "book-title": "Запись на Прием через WhatsApp",
-      "book-desc": "Заполните форму ниже и отправьте нам сообщение — мы оперативно подтвердим ваше время.",
-      "form-fname": "Имя",
-      "form-lname": "Фамилия",
-      "form-phone": "Номер телефона",
-      "form-service": "Интересующая Услуга",
-      "opt-select": "Выберите услугу...",
-      "opt-1": "Общий Осмотр",
-      "opt-2": "Отбеливание Зубов",
-      "opt-3": "Зубные Виниры",
-      "opt-4": "Имплантация Зубов",
-      "opt-5": "Ортодонтия",
-      "opt-6": "Лечение Каналов",
-      "opt-7": "Другое / Консультация",
-      "btn-submit-booking": "Отправить Запись в WhatsApp",
-      "footer-tagline": "Ваша улыбка — наша миссия",
-      "f-home": "Главная", "f-about": "О докторе", "f-services": "Услуги", "f-results": "Результаты", "f-reviews": "Отзывы", "f-book": "Запись",
-      "footer-copy": "© 2025 Стоматологическая клиника др. Оганеса. Все права защищены.",
-      "ph-fname": "напр. Анна", "ph-lname": "напр. Петросян",
-      "alert-err": "Пожалуйста, заполните имя и номер телефона."
-    }
-  };
-
-  let currentLang = localStorage.getItem('selectedLang') || 'en';
-
-  function applyLanguage(lang) {
-    const translation = translations[lang];
-    
-    // Update all static i18n text
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (translation[key]) {
-        el.innerHTML = translation[key];
-      }
-    });
-
-    // Handle Input Placeholders explicitly
-    document.getElementById('fname').placeholder = translation['ph-fname'];
-    document.getElementById('lname').placeholder = translation['ph-lname'];
-
-    // Update Direct Anchor Href Parameters for Standard Buttons
-    const askMsg = encodeURIComponent(lang === 'hy' ? "Բարև Ձեզ, կցանկանայի ավելին հայտնալ Ձեր ծառայությունների մասին" : lang === 'ru' ? "Здравствуйте, я хотел бы узнать больше о ваших услугах" : "Hello, I'd like to learn more about your services");
-    const consultMsg = encodeURIComponent(lang === 'hy' ? "Բարև Ձեզ, կցանկանայի ամրագրել խորհրդատվություն" : lang === 'ru' ? "Здравствуйте, я хотел бы записаться на консультацию" : "Hello, I'd like to see more results and book a consultation");
-    
-    document.getElementById('askServicesBtn').href = `https://wa.me/37433213330?text=${askMsg}`;
-    document.getElementById('getConsultBtn').href = `https://wa.me/37433213330?text=${consultMsg}`;
-    document.getElementById('ctaWaBtn').href = `https://wa.me/37433213330?text=${consultMsg}`;
-
-    // Update active UI classes for switcher
-    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-    const index = lang === 'en' ? 0 : lang === 'hy' ? 1 : 2;
-    document.querySelectorAll('.lang-btn')[index].classList.add('active');
-  }
-
-  function changeLang(lang) {
-    currentLang = lang;
-    localStorage.setItem('selectedLang', lang);
-    applyLanguage(lang);
-  }
-
-  // Initialize Language on Document Load
-  document.addEventListener('DOMContentLoaded', () => {
-    applyLanguage(currentLang);
-  });
-
   // NAV TOGGLE
   function toggleMenu(){
     document.getElementById('hamburger').classList.toggle('open');
@@ -1169,28 +815,18 @@
   }, { threshold:0.12 });
   revealEls.forEach(el => observer.observe(el));
 
-  // DYNAMIC MULTILINGUAL WHATSAPP BOOKING SCRIPT
+  // WHATSAPP BOOKING
   function sendToWhatsApp(e){
     e.preventDefault();
     const fname = document.getElementById('fname').value.trim();
     const lname = document.getElementById('lname').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const service = document.getElementById('service').value;
-    
     if(!fname || !lname || !phone){
-      alert(translations[currentLang]['alert-err']);
+      alert('Please fill in your name and phone number.');
       return;
     }
-
-    let msg = "";
-    if(currentLang === 'hy') {
-      msg = `Ողջույն Դր. Հովհաննես։ 👋\n\nԿցանկանայի ամրագրել ատամնաբուժական այցելություն:\n\n👤 Անուն: ${fname} ${lname}\n📱 Հեռախոս: ${phone}\n🦷 Ծառայություն: ${service || 'Նշված չէ'}\n\nԽնդրում եմ հայտնել հնարավոր ազատ ժամերը: Շնորհակալություն։`;
-    } else if(currentLang === 'ru') {
-      msg = `Здравствуйте, др. Оганес! 👋\n\nЯ хотел бы записаться на прием к стоматологу.\n\n👤 Имя: ${fname} ${lname}\n📱 Тел: ${phone}\n🦷 Услуга: ${service || 'Не указано'}\n\nПожалуйста, сообщите мне доступные свободные слоты. Спасибо!`;
-    } else {
-      msg = `Hello Dr. Hovhannes! 👋\n\nI'd like to book a dental appointment.\n\n👤 Name: ${fname} ${lname}\n📱 Phone: ${phone}\n🦷 Service: ${service || 'Not specified'}\n\nPlease let me know your available slots. Thank you!`;
-    }
-
+    const msg = `Hello Dr. Hovhannes! 👋\n\nI'd like to book a dental appointment.\n\n👤 Name: ${fname} ${lname}\n📱 Phone: ${phone}\n🦷 Service: ${service || 'Not specified'}\n\nPlease let me know your available slots. Thank you!`;
     const url = `https://wa.me/37433213330?text=${encodeURIComponent(msg)}`;
     window.open(url, '_blank');
   }
