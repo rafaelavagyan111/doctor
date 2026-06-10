@@ -51,7 +51,7 @@
   .nav-menu {
     position:fixed; top:60px; left:0; right:0;
     background:rgba(26,58,107,0.98);
-    backdrop-filter:blur(166px);
+    backdrop-filter:blur(16px);
     transform:translateY(-110%);
     transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);
     padding:20px 0 30px;
@@ -69,20 +69,29 @@
   /* ── HERO ── */
   #home {
     min-height:100vh;
-    /* UPDATE: Changed background to layered image and gradient overlay */
-    background: linear-gradient(rgba(13, 31, 60, 0.75), rgba(13, 31, 60, 0.9)), url('https://images.unsplash.com/photo-1599309831778-d4588e404c10?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     text-align:center; padding:80px 24px 60px;
     position:relative; overflow:hidden;
+    
+    /* ==========================================
+       EDIT BACKGROUND IMAGE HERE 
+       ==========================================
+       The linear-gradient acts as a dark tint layer over your image.
+       Replace the Unsplash URL inside url('...') with your own image path. 
+    */
+    background: linear-gradient(rgba(13, 31, 60, 0.82), rgba(26, 58, 107, 0.82)), 
+                url('https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* ========================================== */
   }
   .blob {
     position:absolute;
     border-radius:50%;
     filter:blur(60px);
-    /* UPDATE: Reduced blob opacity for better integration with background image */
-    opacity:0.1;
+    opacity:0.18;
     animation:morphBlob 12s ease-in-out infinite;
-    z-index:-1; /* ADDED: ensure blobs are behind content but in front of background image if needed (they are already but this is safer) */
   }
   .blob-1 {
     width:340px; height:340px;
@@ -356,7 +365,7 @@
     text-align:center;
     position:relative; overflow:hidden;
   }
-  #cta-banner .blob { opacity:0.12; z-index:-1;}
+  #cta-banner .blob { opacity:0.12; }
   .cta-title {
     font-family:'Playfair Display',serif;
     font-size:clamp(1.6rem,5vw,2.2rem);
@@ -834,3 +843,5 @@
     window.open(url, '_blank');
   }
 </script>
+</body>
+</html>
